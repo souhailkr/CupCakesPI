@@ -1,0 +1,44 @@
+{% extends "@CupCakes/frontlayout.html.twig" %}
+
+{% block fos_user_content %}
+
+    {% for modele in modeles %}
+
+
+        <div class="col-sm">
+       <div class="">
+            <!--item-->
+            <div class="entry one-third wow fadeInLeft">
+                <figure>
+                    <img src="{{ asset('uploads/images/' ~ modele.image) }}" alt="" />
+                    <figcaption><a href="{{ path('recette_show',{'id':modele.id} )}}"><i class="ico i-view"></i> <span>Voir Recette</span></a></figcaption>
+                </figure>
+                <div class="container">
+                    <h2><a href="{{ path('recette_show',{'id':modele.id} )}}">{{ modele.nom }}</a></h2>
+                    <div class="actions">
+                        <div>
+                            <div class="difficulty"><i class="ico i-medium"></i><a href="#">{{ modele.difficulte }}</a></div>
+                            <div class="likes"><i class="ico i-likes"></i><a href="#">10</a></div>
+                            <div class="comments"><i class="ico i-comments"></i><a href="recipe.html#comments">27</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--item-->
+
+            <!--item-->
+
+            </div>
+        </div>
+
+    {% endfor %}
+    <div class="quicklinks">
+    <div class="pager wow fadeInUp">
+            {{ knp_pagination_render(modeles) }}
+        </div>
+        <a href="#" class="button">More recipes</a>
+        <a href="javascript:void(0)" class="button scroll-to-top">Back to top</a>
+    </div>
+
+
+{% endblock %}

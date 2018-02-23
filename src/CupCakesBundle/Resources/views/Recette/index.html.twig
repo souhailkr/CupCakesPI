@@ -1,0 +1,38 @@
+{% extends "CupCakesBundle::backlayout.html.twig" %}
+{% block body %}
+    <h3>List des recettes</h3>
+    <table class="table table-hover table-responsive">
+        <thead>
+        <tr>
+            <th class="col-sm-1">id</th>
+            <th class="col-sm-1">nom</th>
+            <th class="col-sm-2">description</th>
+
+            <th class="col-sm-2">options</th>
+
+
+        </tr>
+        </thead>
+
+
+        {% for recette in recettes %}
+            <tr>
+
+                <td>{{ recette.id }}</td>
+                <td>{{ recette.nom }}</td>
+                <td>{{ recette.description }}</td>
+                <td>
+
+                    <a href="{{ path('back_recette_show',{'id':recette.id}) }}" class="btn btn-default btn-sm">Afficher</a>
+                    <a href="{{ path('back_recette_delete',{'id':recette.id}) }}" class="btn btn-default btn-sm">Supprimer</a>
+                </td>
+
+
+            </tr>
+        {% endfor %}
+
+
+
+    </table>
+
+{% endblock %}

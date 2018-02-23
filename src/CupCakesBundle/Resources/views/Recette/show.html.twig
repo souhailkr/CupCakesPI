@@ -1,0 +1,87 @@
+{% extends "CupCakesBundle::backlayout.html.twig" %}
+{% block body %}
+
+    <h3><span class="glyphicon">&#xe179;</span> Recette</h3>
+
+    <div class="row">
+        <div class="col-md-10">
+            <table class="table table-striped table-bordered">
+
+                <tbody>
+
+                <tr>
+
+                    <th>Id</th>
+                    <td>{{ recette.id }}</td>
+                </tr>
+                <tr>
+                    <th>Nom</th>
+                    <td>{{ recette.nom }}</td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td>{{ recette.description }}</td>
+                </tr>
+                <tr>
+                    <th>Catégorie</th>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>Difficulté</th>
+                    <td>{{ recette.difficulte }}</td>
+                </tr>
+                <tr>
+                    <th>Temps de préparation</th>
+                    <td>{{ recette.tempspreparation }}</td>
+                </tr>
+                <tr>
+                    <th>Temps de cuisson</th>
+                    <td>{{ recette.tempscuisson }}</td>
+                </tr>
+                <tr>
+                    <th>Nombre de personnes</th>
+                    <td>4</td>
+                </tr>
+                <tr>
+                    <th>Image</th>
+                    <td><img src="{{  asset("front/images/img2.jpg")}}" alt="" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>Etapes de préparation</th>
+                    <td><ul> {% for etape in etapes %}
+
+                                <li>{{ etape.description }}</li>
+                            {% endfor %} </ul></td>
+                </tr>
+                <tr>
+                    <th>Ingrédients</th>
+                    <td>
+                        {% for ingredient in ingredients %}
+                            <dt>{{ ingredient.quantite }}
+
+                            {{ ingredient.nom }}</dd>
+                        {% endfor %}
+                    </td>
+                </tr>
+
+
+                </tbody>
+            </table>
+
+
+        </div>
+
+
+        <div class="col-md-2">
+            <form id="deleteForm" action="" method="POST">
+                <a href="{{ path('back_recette_index') }}" class="btn btn-primary btn-block">Vers la liste</a>
+                <a href="{{ path('back_recette_edit',{'id':recette.id}) }}" class="btn btn-info btn-block" href="">Mettre à jour</a>
+                <hr>
+                <a href="{{ path('back_recette_delete',{'id':recette.id}) }}" class="btn btn-danger btn-block" >Supprimer</a>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
+

@@ -1,0 +1,46 @@
+recette:
+    path:     /recettes
+    defaults: { _controller: CupCakesBundle:Recette:recettes }
+
+
+recette_ajout:
+    path:     /ajout
+    defaults: { _controller: CupCakesBundle:Recette:Ajout }
+
+recette_show:
+    path:     recette/{id}
+    defaults: { _controller: CupCakesBundle:Recette:show}
+
+
+recette_edit:
+    path:     /{id}/edit
+    defaults: { _controller: CupCakesBundle:Recette:edit }
+
+recette_delete:
+    path:     /{id}/delete
+    defaults: { _controller: CupCakesBundle:Recette:delete }
+
+
+
+recette_recherche:
+    path:     /recherche
+    defaults: { _controller: CupCakesBundle:Recette:recherche }
+
+back_recette_index:
+    path:     admin/listrecette
+    defaults: { _controller: CupCakesBundle:Recette:index }
+
+back_recette_show:
+    path:     admin/showrecette/{id}
+    defaults: { _controller: CupCakesBundle:Recette:show2 }
+
+
+back_recette_edit:
+    path:     admin/{id}/update
+    defaults: { _controller: CupCakesBundle:Recette:update }
+
+back_recette_delete:
+    path:     admin/{id}/remove
+    defaults: { _controller: CupCakesBundle:Recette:delete }
+
+

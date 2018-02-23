@@ -1,0 +1,3 @@
+astuce:
+    path:     /astuces
+    defaults: { _controller: CupCakesBundle:Astuce:index}

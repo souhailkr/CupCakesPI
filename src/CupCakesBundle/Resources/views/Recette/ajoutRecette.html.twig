@@ -1,0 +1,237 @@
+{% extends '@CupCakes/frontlayout.html.twig' %}
+
+{% block fos_user_content %}
+
+    {{ form_start(Form) }}
+
+
+    <!--content-->
+    <div class="row">
+    <header class="s-title">
+        <h1>Ajouter une nouvelle recette</h1>
+    </header>
+
+    <section class="content full-width wow fadeInUp">
+        <div class="submit_recipe container">
+
+                <section>
+                    <h2>Basics</h2>
+                    <p>All fields are required.</p>
+                    <div class="f-row">
+                        <div class="full"> {{ form_widget(Form.nom,{'attr':{'placeholder':'Nom'}}) }}
+                        </div>
+                    </div>
+                    <div class="f-row">
+                        <div class="third">{{ form_widget(Form.temps_preparation,{'attr':{'placeholder':'Temps de préparation (en minutes)'}}) }}</div>
+                        <div class="third">{{ form_widget(Form.temps_cuisson,{'attr':{'placeholder':'Temps de cuisson (en minutes)'}}) }}</div>
+                        <div class="third">{{ form_widget(Form.difficulte,{'attr':{'placeholder':'Difficulté'}}) }}</div>
+                    </div>
+                    <div class="f-row">
+                        <div class="third">{{ form_widget(Form.nb_personnes,{'attr':{'placeholder':'Nombre de personnes?'}}) }}</div>
+                        <div class="third">{{ form_widget(Form.categorie,{'attr':{'placeholder':'Categorie'}}) }}</select></div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>Description</h2>
+                    <div class="f-row">
+                        <div class="full"><textarea {{ form_widget(Form.description,{'attr':{'placeholder':'Description'}}) }}</textarea></div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>Ingredients</h2>
+                    <div class="f-row ingredient">
+
+
+                        <div class="large"><input type="text" placeholder="Ingredient" /></div>
+                        <div class="small"><input type="text" placeholder="Quantity" /></div>
+                        <div class="third"><select><option selected="selected">Select a category</option></select></div>
+                        <button class="remove">-</button>
+                    </div>
+                    <div class="f-row full">
+                        <div class="tags1" data-prototype="{{ form_widget(Form.ingredients.vars.prototype)|e('html_attr') }}">
+                            {% for genusScientistForm in Form.ingredients %}
+
+                                {{ form_row(genusScientistForm.nom) }}
+                                {{ form_row(genusScientistForm.quantite) }}
+
+
+                            {% endfor %}
+
+                        </div>
+
+
+                    </div>
+                </section>
+
+                <section>
+                    <h2>Instructions <span>(enter instructions, each step at a time)</span></h2>
+                    <div id="instruction">
+
+
+                        <div class="tags" data-prototype="{{ form_widget(Form.etapes.vars.prototype)|e('html_attr') }}">
+                            {% for genusScientistForm in Form.etapes %}
+
+                                {{ form_row(genusScientistForm.description) }}
+
+                            {% endfor %}
+
+                        </div>
+
+
+                    </div>
+                    <div class="f-row full">
+
+                    </div>
+                </section>
+
+                <section>
+                    <h2>Photo</h2>
+                    <div class="f-row full">
+                        {{ form_widget(Form.image,{'attr':{'placeholder':''}}) }}
+                    </div>
+                </section>
+
+
+
+
+                <div class="f-row full">
+                    <input type="submit" class="button" id="submitRecipe" value="Publier la recette" />
+                </div>
+        </div>
+    </section>
+    <!--//content-->
+
+    </div>
+
+    {{ form_end(Form, {'render_rest': false}) }}
+    <script src="{{  asset("front/js/jquery-3.2.1.js") }}"></script>
+
+
+
+    <script>
+        // setup an "add a tag" link
+        var $addTagLink = $('<input type="button" class="add_tag_link"  value="Ajouter un instruction" />\n');
+        var $newLinkLi = $('<div></div>').append($addTagLink);
+
+        jQuery(document).ready(function() {
+            // Get the ul that holds the collection of tags
+            var $collectionHolder = $('div.tags');
+
+            // add the "add a tag" anchor and li to the tags ul
+            $collectionHolder.append($newLinkLi);
+
+            // count the current form inputs we have (e.g. 2), use that as the new
+            // index when inserting a new item (e.g. 2)
+            $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+            $addTagLink.on('click', function(e) {
+                // prevent the link from creating a "#" on the URL
+                e.preventDefault();
+
+                // add a new tag form (see code block below)
+                addTagForm($collectionHolder, $newLinkLi);
+            });
+
+
+        });
+
+        function addTagForm($collectionHolder, $newLinkLi) {
+            // Get the data-prototype explained earlier
+            var prototype = $collectionHolder.data('prototype');
+
+            // get the new index
+            var index = $collectionHolder.data('index');
+
+            // Replace '$$name$$' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            var newForm = prototype.replace(/__name__/g, index);
+
+            // increase the index with one for the next item
+            $collectionHolder.data('index', index + 1);
+
+            // Display the form in the page in an li, before the "Add a tag" link li
+            var $newFormLi = $('<div></div>').append(newForm);
+
+            // also add a remove button, just for this example
+            $newFormLi.append('<a href="#" class="remove-tag">x</a>');
+
+            $newLinkLi.before($newFormLi);
+
+            // handle the removal, just for this example
+            $('.remove-tag').click(function(e) {
+                e.preventDefault();
+
+                $(this).parent().remove();
+
+                return false;
+            });
+        }
+    </script>
+
+    <script>
+        // setup an "add a tag" link
+        var $addTagLink1 = $('<input type="button" class="add_tag_link"  value="Ajouter un ingrédient" />\n');
+        var $newLinkLi1 = $('<div></div>').append($addTagLink1);
+
+        jQuery(document).ready(function() {
+            // Get the ul that holds the collection of tags
+            var $collectionHolder = $('div.tags1');
+
+            // add the "add a tag" anchor and li to the tags ul
+            $collectionHolder.append($newLinkLi1);
+
+            // count the current form inputs we have (e.g. 2), use that as the new
+            // index when inserting a new item (e.g. 2)
+            $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+            $addTagLink1.on('click', function(e) {
+                // prevent the link from creating a "#" on the URL
+                e.preventDefault();
+
+                // add a new tag form (see code block below)
+                addTagForm1($collectionHolder, $newLinkLi1);
+            });
+
+
+        });
+
+        function addTagForm1($collectionHolder, $newLinkLi) {
+            // Get the data-prototype explained earlier
+            var prototype = $collectionHolder.data('prototype');
+
+            // get the new index
+            var index = $collectionHolder.data('index');
+
+            // Replace '$$name$$' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            var newForm = prototype.replace(/__name__/g, index);
+
+            // increase the index with one for the next item
+            $collectionHolder.data('index', index + 1);
+
+            // Display the form in the page in an li, before the "Add a tag" link li
+            var $newFormLi = $('<div></div>').append(newForm);
+
+            // also add a remove button, just for this example
+            $newFormLi.append('<a href="#" class="remove-tag">x</a>');
+
+            $newLinkLi1.before($newFormLi);
+
+            // handle the removal, just for this example
+            $('.remove-tag').click(function(e) {
+                e.preventDefault();
+
+                $(this).parent().remove();
+
+                return false;
+            });
+        }
+    </script>
+
+
+
+
+
+{% endblock %}

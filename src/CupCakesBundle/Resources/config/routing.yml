@@ -1,0 +1,22 @@
+recettes:
+        resource: "@CupCakesBundle/Resources/config/rooting/recettes.yml"
+        prefix:   /
+
+patisseries:
+        resource: "@CupCakesBundle/Resources/config/rooting/patisseries.yml"
+        prefix:   /
+
+astuces:
+        resource: "@CupCakesBundle/Resources/config/rooting/astuces.yml"
+        prefix:   /
+
+chefs:
+        resource: "@CupCakesBundle/Resources/config/rooting/chefs.yml"
+        prefix:   /
+
+
+default:
+        resource: "@CupCakesBundle/Resources/config/rooting/default.yml"
+        prefix:   /
+
+

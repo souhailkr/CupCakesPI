@@ -1,0 +1,3 @@
+patisserie:
+    path:     /patisseries
+    defaults: { _controller: CupCakesBundle:Patisserie:index }

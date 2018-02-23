@@ -1,0 +1,135 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: SouhaiKr
+ * Date: 18/02/2018
+ * Time: 18:38
+ */
+
+namespace CupCakesBundle\Entity;
+use Doctrine\ORM\Mapping as ORM;
+
+
+/**
+ * @ORM\Entity(repositoryClass="CupCakesBundle\Repository\IngredientRepository")
+
+ */
+class Ingredient
+{
+
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+
+    protected $id;
+
+    /**
+     * @ORM\Column(type="string",length=255)
+     */
+    private $nom;
+
+    /**
+     * @ORM\Column(type="string",length=255)
+     */
+    private $quantite;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="CupCakesBundle\Entity\Recette", inversedBy="ingredients")
+     * @ORM\JoinColumn(name="recette_id", referencedColumnName="id")
+     */
+    protected $recette ;
+
+
+
+
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+
+
+
+
+    /**
+     * Set recette
+     *
+     * @param \CupCakesBundle\Entity\Recette $recette
+     *
+     * @return Ingredient
+     */
+    public function setRecette(\CupCakesBundle\Entity\Recette $recette = null)
+    {
+        $this->recette = $recette;
+
+        return $this;
+    }
+
+    /**
+     * Get recette
+     *
+     * @return \CupCakesBundle\Entity\Recette
+     */
+    public function getRecette()
+    {
+        return $this->recette;
+    }
+
+    /**
+     * Set quantite
+     *
+     * @param string $quantite
+     *
+     * @return Ingredient
+     */
+    public function setQuantite($quantite)
+    {
+        $this->quantite = $quantite;
+
+        return $this;
+    }
+
+    /**
+     * Get quantite
+     *
+     * @return string
+     */
+    public function getQuantite()
+    {
+        return $this->quantite;
+    }
+
+
+
+    /**
+     * Set nom
+     *
+     * @param string $nom
+     *
+     * @return Ingredient
+     */
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    /**
+     * Get nom
+     *
+     * @return string
+     */
+    public function getNom()
+    {
+        return $this->nom;
+    }
+}
